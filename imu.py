@@ -4,7 +4,6 @@ import struct
 import spidev
 import time
 import rospy
-import math
 import numpy as np
 from time import time
 #from MPU9250 import MPU9250

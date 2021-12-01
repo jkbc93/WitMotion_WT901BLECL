@@ -108,6 +108,7 @@ class Witmotion:
 				else:
 					print('no se que sucedio',s)
 					return 'sos'
+					
 			'''
 
 
