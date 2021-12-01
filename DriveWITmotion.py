@@ -14,10 +14,11 @@ class Witmotion:
 	def initialize(self):
 		self.cont_packet_data = 0
 		self.Ser = serial.Serial('/dev/ttyUSB0', 115200)
-		while self.Ser.read(2) != b'\x55\x61':
-			pass
-		else:
-			pp = self.Ser.read(18)
+		while True:
+			if self.Ser.read(1) == b'\x55':
+				if self.Ser.read(1) == b'\x61':  
+					pp = self.Ser.read(18)
+					break
 		self.Ser.write(b'\xff\xaa\x03\x0b\x00')
 		print(self.WitRead())
 		time.sleep(0.5)
