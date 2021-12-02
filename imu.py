@@ -1,7 +1,7 @@
 import serial
 import time
 import struct
-import spidev
+#import spidev
 import time
 import rospy
 import numpy as np

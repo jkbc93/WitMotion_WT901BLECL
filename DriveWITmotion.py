@@ -3,10 +3,6 @@ import time
 import struct
 import sys
 import numpy as np
-#import rospy
-#from tf.transformations import euler_from_quaternion, quaternion_from_euler
-#from scipy.spatial.transform import Rotation
-#602 4853530
 
 
 class Witmotion:
@@ -14,6 +10,7 @@ class Witmotion:
 	def initialize(self):
 		self.cont_packet_data = 0
 		self.Ser = serial.Serial('/dev/ttyUSB0', 115200)
+		print("Connect")
 		while True:
 			if self.Ser.read(1) == b'\x55':
 				if self.Ser.read(1) == b'\x61':  
@@ -43,7 +40,7 @@ class Witmotion:
 		if s[0] == 85:#b'\x55'
 			### Data Packet(Default) ###
 			if s[1] == 97:#b'\x61'
-				Data_Packet_Default = struct.unpack('<9H',s[2:])
+				Data_Packet_Default = struct.unpack('<9h',s[2:])
 
 				###  Acceleration  ###
 				Ax = Data_Packet_Default[0]/32768 * 16 * 9.8
