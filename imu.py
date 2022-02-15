@@ -23,7 +23,7 @@ def talker():
 	while not rospy.is_shutdown():
 
 		#imu.read_acc()
-		
+		deg2rad = 3.141592654/180
 		msg.header.stamp = rospy.get_rostime()
 		msg.header.frame_id = 'imu_link'
 
@@ -34,9 +34,9 @@ def talker():
 		ax = m9a[0]
 		ay = m9a[1]
 		az = m9a[2]
-		gx = m9g[0]
-		gy = m9g[1]
-		gz = m9g[2]
+		gx = m9g[0] * deg2rad
+		gy = m9g[1] * deg2rad
+		gz = m9g[2] * deg2rad
 		q0 = m9q[3] #W
 		q1 = m9q[0] #X
 		q2 = m9q[1] #Y
@@ -52,12 +52,12 @@ def talker():
 		msg.orientation_covariance[0] = q2 * q2
 		msg.orientation_covariance[0] = q3 * q3		
 
-		msg.angular_velocity.x = m9g[0]
-		msg.angular_velocity.y = m9g[1]
-		msg.angular_velocity.z = m9g[2]
-		msg.angular_velocity_covariance[0] = m9g[0] * m9g[0]
-		msg.angular_velocity_covariance[4] = m9g[1] * m9g[1]
-		msg.angular_velocity_covariance[8] = m9g[2] * m9g[2]
+		msg.angular_velocity.x = m9g[0] * deg2rad
+		msg.angular_velocity.y = m9g[1] * deg2rad
+		msg.angular_velocity.z = m9g[2] * deg2rad
+		msg.angular_velocity_covariance[0] = (deg2rad**2) * m9g[0] * m9g[0]
+		msg.angular_velocity_covariance[4] = (deg2rad**2) * m9g[1] * m9g[1]
+		msg.angular_velocity_covariance[8] = (deg2rad**2) * m9g[2] * m9g[2]
 		
 		msg.linear_acceleration.x = m9a[0]
 		msg.linear_acceleration.y = m9a[1]
